@@ -20,10 +20,21 @@ body{
     list-style: none;
 }
 
+.tag-list li{
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgb(20, 20, 20);
+    box-shadow: 0 0.5rem 1rem -.25rem black;
+}
+
 .scroller{
     max-width: 600px;
+    /* outline: 3px solid lime; */
 }
 
 .scroller-inner{
+    padding: 1rem 0;
     display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
