@@ -14,6 +14,10 @@ body{
     background-color: #2b2b2b;
 }
 
+:root{
+    --scroller-gap:1rem
+}
+
 .tag-list{
     margin: 0;
     padding-inline: 0;
@@ -27,6 +31,7 @@ body{
     box-shadow: 0 0.5rem 1rem -.25rem black;
 }
 
+/* by applying overflow: hidden to an outer div and having the scroller an inner div, were able to animate it moving without it actually moving positions on the screen */
 .scroller{
     max-width: 600px;
     /* outline: 3px solid lime; */
@@ -36,5 +41,25 @@ body{
     padding: 1rem 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--scroller-gap);
+}
+
+.scroller[data-animated="true"]{
+    overflow: hidden;
+    /* webkit for chromium, regular mask for everything else */
+    -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+.scroller[data-animated="true"] .scroller-inner{
+    width: max-content;
+    flex-wrap: nowrap;
+    animation: scroll 16s linear infinite;
+}
+
+@keyframes scroll {
+    to {
+        /* we want it to move halfway before "restarting", but since the contents duplicated it wont look like its restarting. Also, we have to subtract half of the gap for things to align */
+        transform: translate(calc(-50% - var(--scroller-gap)/2))
+    }
 }
